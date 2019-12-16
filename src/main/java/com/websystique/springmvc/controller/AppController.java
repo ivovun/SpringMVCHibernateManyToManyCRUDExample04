@@ -52,7 +52,7 @@ public class AppController {
 	@RequestMapping(value = { "/user" }, method = RequestMethod.GET)
 	public String userPage(ModelMap model) {
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "registrationsuccess";
+		return "userpage";
 	}
 
 	@RequestMapping(value = { "/" })
