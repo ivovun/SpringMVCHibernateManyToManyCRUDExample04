@@ -20,7 +20,6 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userDetailsService;
 
-
 	public SecurityConfiguration(UserDetailsService userDetailsService) {
 		this.userDetailsService = userDetailsService;
 	}
@@ -34,13 +33,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/user").access("hasRole('ADMIN') or hasRole('USER') or hasRole('DBA')")
+				.antMatchers("/user").hasAnyRole("ADMIN", "USER", "DBA")
 
-				.antMatchers( "/admin/list").access("hasRole('ADMIN') ")
+				.antMatchers( "/admin/list").hasRole("ADMIN")
 
-				.antMatchers("/admin/newuser/**", "/admin/delete-user-*").access("hasRole('ADMIN')")
+				.antMatchers("/admin/newuser/**", "/admin/delete-user-*").hasRole("ADMIN")
 
-				.antMatchers("/admin/edit-user-*").access("hasRole('ADMIN')")
+				.antMatchers("/admin/edit-user-*").hasRole("ADMIN")
 
 				.and().formLogin().loginPage("/login").loginProcessingUrl("/login").usernameParameter("ssoId").passwordParameter("password")
 
@@ -62,12 +61,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return authenticationProvider;
 	}
 
-
 	@Bean
 	public AuthenticationTrustResolver getAuthenticationTrustResolver() {
 		return new AuthenticationTrustResolverImpl();
 	}
-
 
 	@Bean
 	public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){

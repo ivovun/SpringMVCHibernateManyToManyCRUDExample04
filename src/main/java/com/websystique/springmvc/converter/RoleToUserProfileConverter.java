@@ -16,7 +16,6 @@ import com.websystique.springmvc.service.UserProfileService;
 public class RoleToUserProfileConverter implements Converter<Object, UserProfile>{
 	private static final Logger logger = LoggerFactory.getLogger(RoleToUserProfileConverter.class);
 	
-//	@Autowired
 	private UserProfileService userProfileService;
 
 	public RoleToUserProfileConverter(UserProfileService userProfileService) {

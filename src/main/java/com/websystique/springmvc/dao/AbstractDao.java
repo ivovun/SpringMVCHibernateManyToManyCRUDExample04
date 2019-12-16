@@ -42,7 +42,6 @@ public abstract class AbstractDao<PK extends Serializable, T> {
 		try {
 			return (T) entityManager.createQuery("SELECT e FROM " + persistentClass.getName()
 					+" e WHERE e." + name + " = :name").setParameter("name", value).getSingleResult();
-
 		} catch (NoResultException e) {
 			return null;
 		}

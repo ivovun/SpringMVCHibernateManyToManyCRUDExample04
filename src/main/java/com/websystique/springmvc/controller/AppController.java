@@ -38,7 +38,6 @@ public class AppController {
 	
 	MessageSource messageSource;
 
-
 	AuthenticationTrustResolver authenticationTrustResolver;
 
 	public AppController(UserService userService, UserProfileService userProfileService,
@@ -56,28 +55,10 @@ public class AppController {
 		return "registrationsuccess";
 	}
 
-	@RequestMapping(value = { "/", "/list" })
-	public String redirectList(ModelMap model) {
+	@RequestMapping(value = { "/" })
+	public String redirectList() {
 		return "redirect:/admin/list";
 	}
-
-	@RequestMapping(value = { "/newuser" })
-	public String redirectNewuser(ModelMap model) {
-		return "redirect:/admin/newuser";
-	}
-
-	@RequestMapping(value = { "/edit-user-{ssoId}" })
-	public String redirectNewuser(@PathVariable String ssoId, ModelMap model) {
-		return "redirect:/admin/edit-user-{ssoId}";
-	}
-
-	@RequestMapping(value = { "/delete-user-{ssoId}" })
-	public String redirectDelete(@PathVariable String ssoId) {
-		return "redirect:/admin/delete-user-{ssoId}";
-	}
-
-
-
 
 	/**
 	 * This method will list all existing users.
@@ -134,7 +115,7 @@ public class AppController {
 		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
 		//return "success";
-		return "registrationsuccess";
+		return "redirect:/admin/list";
 	}
 
 	/**
@@ -165,7 +146,7 @@ public class AppController {
 
 		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " updated successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
-		return "registrationsuccess";
+		return "redirect:/admin/list";
 	}
 
 	/**
