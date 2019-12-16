@@ -48,11 +48,4 @@ INSERT INTO APP_USER_USER_PROFILE (user_id, user_profile_id)
   SELECT user.id, profile.id FROM app_user user, user_profile profile
   where user.sso_id='sam' and profile.type='ADMIN';
 
-/* Create persistent_logins Table used to store rememberme related stuff*/
-CREATE TABLE persistent_logins (
-    username VARCHAR(64) NOT NULL,
-    series VARCHAR(64) NOT NULL,
-    token VARCHAR(64) NOT NULL,
-    last_used TIMESTAMP NOT NULL,
-    PRIMARY KEY (series)
-);
+

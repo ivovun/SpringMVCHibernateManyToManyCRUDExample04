@@ -14,19 +14,15 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenBasedRememberMeServices;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	private UserDetailsService userDetailsService;
 
-	private PersistentTokenRepository tokenRepository;
 
-	public SecurityConfiguration(UserDetailsService userDetailsService, PersistentTokenRepository tokenRepository) {
+	public SecurityConfiguration(UserDetailsService userDetailsService) {
 		this.userDetailsService = userDetailsService;
-		this.tokenRepository = tokenRepository;
 	}
 
 	@Autowired
@@ -50,8 +46,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 				.successHandler(myAuthenticationSuccessHandler())
 
-				.and().rememberMe().rememberMeParameter("remember-me").tokenRepository(tokenRepository)
-				.tokenValiditySeconds(86400).and().csrf().and().exceptionHandling().accessDeniedPage("/Access_Denied");
+				.and().csrf().and().exceptionHandling().accessDeniedPage("/Access_Denied");
 	}
 
 	@Bean
@@ -67,11 +62,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return authenticationProvider;
 	}
 
-	@Bean
-	public PersistentTokenBasedRememberMeServices getPersistentTokenBasedRememberMeServices() {
-		return new PersistentTokenBasedRememberMeServices(
-				"remember-me", userDetailsService, tokenRepository);
-	}
 
 	@Bean
 	public AuthenticationTrustResolver getAuthenticationTrustResolver() {
