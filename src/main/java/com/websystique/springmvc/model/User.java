@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -50,6 +51,16 @@ public class User implements Serializable{
              joinColumns = { @JoinColumn(name = "USER_ID") }, 
              inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
 	private Set<UserProfile> userProfiles = new HashSet<>();
+
+	private String userProfilesDescription = "";
+
+	public String getUserProfilesDescription() {
+		return userProfilesDescription;
+	}
+
+	public void setUserProfilesDescription(String userProfilesDescription) {
+		this.userProfilesDescription =  userProfilesDescription;
+	}
 
 	public Long getId() {
 		return id;
@@ -105,6 +116,7 @@ public class User implements Serializable{
 
 	public void setUserProfiles(Set<UserProfile> userProfiles) {
 		this.userProfiles = userProfiles;
+		this.userProfilesDescription =  userProfiles.stream().map(c -> c.toString().toLowerCase()).collect(Collectors.joining(", "));
 	}
 
 	@Override
