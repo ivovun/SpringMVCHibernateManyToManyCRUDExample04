@@ -61,6 +61,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Bean
 	public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
-		return new MySimpleUrlAuthenticationSuccessHandler();
+		return new AuthenticationSuccessHandlerImpl();
 	}
 }
