@@ -2,6 +2,7 @@ package com.websystique.springmvc.security;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,16 +33,17 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (user == null) {
             throw new UsernameNotFoundException("Username not found");
         }
-        return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(),
-                true, true, true, true, getGrantedAuthorities(user));
-    }
-
-    private List<GrantedAuthority> getGrantedAuthorities(User user) {
-        List<GrantedAuthority> authorities = new ArrayList<>();
-
-        for (UserProfile userProfile : user.getUserProfiles()) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getType()));
-        }
-        return authorities;
+        return new org.springframework.security.core.userdetails.User(
+                user.getSsoId(),
+                user.getPassword(),
+                true,
+                true,
+                true,
+                true,
+                user.getUserProfiles()
+                        .stream()
+                        .map(p -> new SimpleGrantedAuthority("ROLE_" + p.getType()))
+                        .collect(Collectors.toList())
+        );
     }
 }
