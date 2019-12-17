@@ -23,7 +23,6 @@ import com.websystique.springmvc.converter.RoleToUserProfileConverter;
 @EnableWebMvc
 @ComponentScan(basePackages = "com.websystique.springmvc")
 public class AppConfig implements WebMvcConfigurer {
-//	@Autowired
 	private RoleToUserProfileConverter roleToUserProfileConverter;
 
 	public AppConfig(RoleToUserProfileConverter roleToUserProfileConverter) {
@@ -65,14 +64,5 @@ public class AppConfig implements WebMvcConfigurer {
 	    messageSource.setBasename("messages");
 	    return messageSource;
 	}
-
-//    /**Optional. It's only required when handling '.' in @PathVariables which otherwise ignore everything after last '.' in @PathVaidables argument.
-//     * It's a known bug in Spring [https://jira.spring.io/browse/SPR-6164], still present in Spring 4.1.7.
-//     * This is a workaround for this issue.
-//     */
-//    @Override
-//    public void configurePathMatch(PathMatchConfigurer matcher) {
-//        matcher.setUseRegisteredSuffixPatternMatch(true);
-//    }
 }
 

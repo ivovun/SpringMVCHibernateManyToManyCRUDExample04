@@ -61,10 +61,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return authenticationProvider;
 	}
 
-//	@Bean
-//	public AuthenticationTrustResolver getAuthenticationTrustResolver() {
-//		return new AuthenticationTrustResolverImpl();
-//	}
 
 	@Bean
 	public AuthenticationSuccessHandler myAuthenticationSuccessHandler(){
