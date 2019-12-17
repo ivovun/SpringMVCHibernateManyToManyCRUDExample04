@@ -18,12 +18,12 @@ import com.websystique.springmvc.model.UserProfile;
 import com.websystique.springmvc.service.UserService;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService{
-	private static final Logger logger = LoggerFactory.getLogger(CustomUserDetailsService.class);
+public class UserDetailsServiceImpl implements UserDetailsService{
+	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
 	private UserService userService;
 
-	public CustomUserDetailsService(UserService userService) {
+	public UserDetailsServiceImpl(UserService userService) {
 		this.userService = userService;
 	}
 	
