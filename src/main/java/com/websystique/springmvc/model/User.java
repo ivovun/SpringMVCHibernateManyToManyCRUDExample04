@@ -52,16 +52,6 @@ public class User implements Serializable{
              inverseJoinColumns = { @JoinColumn(name = "USER_PROFILE_ID") })
 	private Set<UserProfile> userProfiles = new HashSet<>();
 
-	private String userProfilesDescription = "";
-
-	public String getUserProfilesDescription() {
-		return userProfilesDescription;
-	}
-
-	public void setUserProfilesDescription(String userProfilesDescription) {
-		this.userProfilesDescription =  userProfilesDescription;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -116,7 +106,10 @@ public class User implements Serializable{
 
 	public void setUserProfiles(Set<UserProfile> userProfiles) {
 		this.userProfiles = userProfiles;
-		this.userProfilesDescription =  userProfiles.stream().map(c -> c.toString().toLowerCase()).collect(Collectors.joining(", "));
+	}
+
+	public String rolesDescription() {
+		return userProfiles.stream().map(c -> c.toString().toLowerCase()).collect(Collectors.joining(", "));
 	}
 
 	@Override
@@ -132,7 +125,6 @@ public class User implements Serializable{
 	public int hashCode() {
 		return Objects.hash(id, ssoId);
 	}
-
 
 	/*
 	 * DO-NOT-INCLUDE passwords in toString function.

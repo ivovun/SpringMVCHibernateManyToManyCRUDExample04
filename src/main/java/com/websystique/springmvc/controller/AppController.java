@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.springframework.context.MessageSource;
-import org.springframework.security.authentication.AuthenticationTrustResolver;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -38,15 +38,12 @@ public class AppController {
 	
 	MessageSource messageSource;
 
-	AuthenticationTrustResolver authenticationTrustResolver;
 
 	public AppController(UserService userService, UserProfileService userProfileService,
-						 MessageSource messageSource,
-						 AuthenticationTrustResolver authenticationTrustResolver) {
+						 MessageSource messageSource) {
 		this.userService = userService;
 		this.userProfileService = userProfileService;
 		this.messageSource = messageSource;
-		this.authenticationTrustResolver = authenticationTrustResolver;
 	}
 
 	@RequestMapping(value = { "/user" }, method = RequestMethod.GET)
@@ -220,7 +217,8 @@ public class AppController {
 	 * This method returns true if users is already authenticated [logged-in], else false.
 	 */
 	private boolean isCurrentAuthenticationAnonymous() {
-	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-	    return authenticationTrustResolver.isAnonymous(authentication);
+//	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//	    return authenticationTrustResolver.isAnonymous(authentication);
+		return SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken;
 	}
 }

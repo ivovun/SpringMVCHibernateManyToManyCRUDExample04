@@ -21,7 +21,6 @@ public class RoleToUserProfileConverter implements Converter<Object, UserProfile
 	public RoleToUserProfileConverter(UserProfileService userProfileService) {
 		this.userProfileService = userProfileService;
 	}
-
 	/**
 	 * Gets UserProfile by Id
 	 * @see org.springframework.core.convert.converter.Converter#convert(java.lang.Object)
@@ -32,5 +31,4 @@ public class RoleToUserProfileConverter implements Converter<Object, UserProfile
 		logger.info("Profile : {}",profile);
 		return profile;
 	}
-	
 }
