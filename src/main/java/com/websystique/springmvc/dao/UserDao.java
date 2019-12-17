@@ -8,9 +8,13 @@ public interface UserDao {
 	User findById(long id);
 	
 	User findBySSO(String sso);
-	
-	void save(User user);
-	
+
+//	void save(User user);
+
+	void persist(User user);
+
+	void update(User user);
+
 	void deleteBySSO(String sso);
 	
 	List<User> findAllUsers();

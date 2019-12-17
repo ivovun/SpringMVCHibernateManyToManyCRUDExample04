@@ -35,9 +35,9 @@ public class UserServiceImpl implements UserService{
 		return dao.findBySSO(sso);
 	}
 
-	public void saveUser(User user) {
+	public void addUser(User user) {
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
-		dao.save(user);
+		dao.persist(user);
 	}
 
 	/*

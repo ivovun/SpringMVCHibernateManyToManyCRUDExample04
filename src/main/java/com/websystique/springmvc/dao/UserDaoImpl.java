@@ -28,13 +28,13 @@ public class UserDaoImpl extends AbstractDao<Long, User> implements UserDao {
 		return findAll();
 	}
 
-	public void save(User user) {
-		if (user.getId() == null) {
-			persist(user);
-		} else {
-			update(user);
-		}
-	}
+//	public void save(User user) {
+//		if (user.getId() == null) {
+//			persist(user);
+//		} else {
+//			update(user);
+//		}
+//	}
 
 	public void deleteBySSO(String sso) {
 		delete(findBySSO(sso));

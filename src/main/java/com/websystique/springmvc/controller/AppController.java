@@ -107,7 +107,7 @@ public class AppController {
 			return "registration";
 		}
 		
-		userService.saveUser(user);
+		userService.addUser(user);
 
 		model.addAttribute("success", "User " + user.getFirstName() + " "+ user.getLastName() + " registered successfully");
 		model.addAttribute("loggedinuser", getPrincipal());
