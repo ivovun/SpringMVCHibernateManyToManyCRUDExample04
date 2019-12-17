@@ -15,10 +15,10 @@ public class MySimpleUrlAuthenticationSuccessHandler implements AuthenticationSu
                                         HttpServletResponse response, Authentication authentication)
             throws IOException {
 
-        Set<String> authoritySet = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
-        if (authoritySet.contains("ROLE_ADMIN")) {
+        Set<String> authoritiesSet = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+        if (authoritiesSet.contains("ROLE_ADMIN")) {
             response.sendRedirect("/admin/list");
-        } else if (authoritySet.contains("ROLE_USER")) {
+        } else if (authoritiesSet.contains("ROLE_USER")) {
             response.sendRedirect("/user");
         } else {
             throw new IllegalStateException("!!!!!!!------>>>>the user mast be USE or ADMIN !!!!!!!!!");
