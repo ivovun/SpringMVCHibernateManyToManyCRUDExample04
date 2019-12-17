@@ -18,36 +18,30 @@ import com.websystique.springmvc.model.UserProfile;
 import com.websystique.springmvc.service.UserService;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService{
-	private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
+public class UserDetailsServiceImpl implements UserDetailsService {
+    private UserService userService;
 
-	private UserService userService;
+    public UserDetailsServiceImpl(UserService userService) {
+        this.userService = userService;
+    }
 
-	public UserDetailsServiceImpl(UserService userService) {
-		this.userService = userService;
-	}
-	
-	@Transactional(readOnly=true)
-	public UserDetails loadUserByUsername(String ssoId)
-			throws UsernameNotFoundException {
-		User user = userService.findBySSO(ssoId);
-		logger.info("User : {}", user);
-		if(user==null){
-			logger.info("User not found");
-			throw new UsernameNotFoundException("Username not found");
-		}
-			return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(), 
-				 true, true, true, true, getGrantedAuthorities(user));
-	}
+    @Transactional(readOnly = true)
+    public UserDetails loadUserByUsername(String ssoId)
+            throws UsernameNotFoundException {
+        User user = userService.findBySSO(ssoId);
+        if (user == null) {
+            throw new UsernameNotFoundException("Username not found");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getSsoId(), user.getPassword(),
+                true, true, true, true, getGrantedAuthorities(user));
+    }
 
-	private List<GrantedAuthority> getGrantedAuthorities(User user){
-		List<GrantedAuthority> authorities = new ArrayList<>();
-		
-		for(UserProfile userProfile : user.getUserProfiles()){
-			logger.info("UserProfile : {}", userProfile);
-			authorities.add(new SimpleGrantedAuthority("ROLE_"+userProfile.getType()));
-		}
-		logger.info("authorities : {}", authorities);
-		return authorities;
-	}
+    private List<GrantedAuthority> getGrantedAuthorities(User user) {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        for (UserProfile userProfile : user.getUserProfiles()) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + userProfile.getType()));
+        }
+        return authorities;
+    }
 }

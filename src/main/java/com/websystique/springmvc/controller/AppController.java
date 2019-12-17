@@ -217,8 +217,6 @@ public class AppController {
 	 * This method returns true if users is already authenticated [logged-in], else false.
 	 */
 	private boolean isCurrentAuthenticationAnonymous() {
-//	    final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//	    return authenticationTrustResolver.isAnonymous(authentication);
 		return SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken;
 	}
 }
